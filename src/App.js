@@ -4,7 +4,8 @@ import './App.css';
 
 import Header from './Components/Header/Header';
 
-import Login from './Components/Login/Login';
+import Login from './Containers/Login/Login';
+import Dashboard from './Containers/Dashboard/Dashboard';
 
 import Footer from './Components/Footer/Footer';
 
@@ -18,7 +19,9 @@ function App() {
 
         <Header></Header>
 
-        <Login></Login>
+        {/* <Login></Login> */}
+
+        <Dashboard></Dashboard>
 
         <Footer></Footer>
 
