@@ -1,6 +1,8 @@
 import React from 'react';
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import {BrowserRouter, Switch, Route, Redirect} from 'react-router-dom';
 import './App.css';
+
+import {connect} from 'react-redux';
 
 import Header from './Components/Header/Header';
 
@@ -9,7 +11,7 @@ import Dashboard from './Containers/Dashboard/Dashboard';
 
 import Footer from './Components/Footer/Footer';
 
-function App() {
+function App(props) {
   return (
 
     <BrowserRouter basename={process.env.PUBLIC_URL}>
@@ -19,13 +21,22 @@ function App() {
 
         <Header></Header>
 
-        {/* <Login></Login> */}
+        <Switch>
 
-        <Dashboard></Dashboard>
+          {/* <Route path='/' component={Login}></Route> */}
 
-        <Footer></Footer>
+          <Route path='/' render={(routeProps) => props.loggedStatus 
+                                                  ? 
+                                                  <Dashboard {...routeProps}/>
+                                                  :
+                                                  <Login/>
+          }/>
 
-         
+          
+
+        </Switch>
+
+        <Footer></Footer> 
       
       </div>
     </BrowserRouter>
@@ -33,4 +44,11 @@ function App() {
   );
 }
 
-export default App;
+const mapGlobalToProps = (globalState) => {
+  return {
+    loggedStatus: globalState.loggedIn
+  }
+}
+
+
+export default connect(mapGlobalToProps)(App);
